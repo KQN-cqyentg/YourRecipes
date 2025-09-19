@@ -1,0 +1,24 @@
+* {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+.container {
+    margin: 0;    
+}
+.head {
+    
+    background: ghostwhite;
+    width: 100%;
+}
+.logo {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 30px;
+}
+.body {
+    background: seashell;
+    width: 100%;
+}
