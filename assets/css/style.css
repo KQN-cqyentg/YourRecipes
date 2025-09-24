@@ -11,12 +11,20 @@
     background: ghostwhite;
     width: 100%;
 }
+.one {
+    margin: 0 0;
+    padding: 10px 0;
+    text-align: center;
+    background: rgb(190, 246, 255)
+}
 .logo {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
     font-size: 30px;
+    color: rgb(13, 79, 90)
+    
 }
 .body {
     background: seashell;
