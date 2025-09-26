@@ -3,29 +3,20 @@
     padding: 0 0;
     box-sizing: border-box;
 }
-.container {
-    margin: 0 50px;
-    padding: 50px 0;   
-    width: 93%; 
-}
-.head {
-    background: ghostwhite;
-    width: 100%;
-}
+/* All file */
 .one {
     margin: 0 0;
     padding: 10px 0;
     text-align: center;
-    background: ghostwhite;
+    background: rgb(252, 246, 234);
 }
 .logo {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    font-size: 50px;
+    font-size: 60px;
     color: rgb(13, 79, 90)
-    
 }
 .pages {
     margin: 0 50px;
@@ -33,7 +24,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     border-top: 1px solid rgb(211, 215, 216);
     border-bottom: 1.5px solid rgb(211, 215, 216);
@@ -48,51 +39,90 @@
     
 }
 /* .p {
-    background: rgb(208, 240, 204);
+    background: oldlace;
 } */
-a {
+.pages a {
     text-decoration: none;
     color: gray;
-    font-size: 25px;
+    font-size: 30px;
 }
 
+
+.footer {
+    background: rgb(252, 246, 234);
+    width: 100%;
+    padding: 30px;
+}
+.navigate {
+    padding: 0 50px;
+}
+.part_children {
+    padding: 25px 0;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.part span {
+    color: rgb(116, 133, 38);
+    font-size: 30px;
+}
+.part a {
+    text-decoration: none;
+    color: gray;
+}
+
+
+
+/* Trang Menu */
+.container {
+    margin: 0 50px;
+    padding: 50px 0;   
+    width: 93%; 
+}
 .dishes {
-    margin: 20px 0;
-    padding: 10 0;
+    margin: 25px 0;
+    padding: 10px 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .dishes img {
-    width: 250px;
+    width: 275px;
 }
 .pop-d {
     padding: 5px;
     border-bottom: 3px solid rgb(51, 106, 85);
-    font-size: 25px;
+    font-size: 40px;
 }
 .dish {
+    width: 350px;
+    white-space: normal;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
     
     border: 1px solid ghostwhite;
-    font-size: 25px;
+    font-size: 28px;
+    transition: transform 0.3s;
+}
+.dish:hover {
+  transform: translateY(-10px);
+}
+.dish a {
+    text-decoration: none;
+    color: black;
 }
 .letter {
     padding: 15px 5px;
+    
 }
 .date {
     margin: 0 5px;
-    font-size: 18px; 
+    font-size: 20px; 
     color: grey;
 }
 
-.footer {
-    background: rgb(208, 240, 204);
-    width: 100%;
-    padding: 20px;
-}
