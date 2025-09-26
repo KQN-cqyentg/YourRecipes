@@ -78,7 +78,7 @@
 .container {
     margin: 0 50px;
     padding: 50px 0;   
-    width: 93%; 
+    width: 100%; 
 }
 .dishes {
     margin: 25px 0;
@@ -97,6 +97,7 @@
     font-size: 40px;
 }
 .dish {
+    margin: 0 10px;
     width: 350px;
     white-space: normal;
     display: flex;
