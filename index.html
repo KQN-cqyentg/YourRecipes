@@ -7,15 +7,66 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div class="one"><h1 class="logo">
-      <img src="./assets/img/recetas.png" alt="logo" /><b>Your Recipes</b>
-    </h1></div>
-    
-    <div class="container">
-      <div class="head"></div>
-      <div class="body">
-        <div class="">sth...</div>
+    <div class="header">
+      <div class="one">
+        <h1 class="logo">
+          <img src="./assets/img/recetas.png" alt="logo" /><b>Your Recipes</b>
+        </h1>
+      </div>
+      <div class="pages">
+        <button class="page p"><a href="./index.html">Menu</a></button>
+        <button class="page p">
+          <a href="./list_dishes.html">List of dishes</a>
+        </button>
+        <button class="page p"><a href="./about.html">About</a></button>
       </div>
     </div>
+
+    <div class="container">
+      <div class="pop-dish">
+        <span class="pop-d">Popular Recipes</span>
+        <div class="dishes">
+          <div class="dish d1">
+            <img
+              src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
+              alt=""
+            />
+            <div class="letter">
+              Green Bean Salad <br />
+              <span class="date">December 18, 2017</span>
+            </div>
+          </div>
+          <div class="dish d1">
+            <img
+              src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
+              alt=""
+            />
+            Green Bean Salad <br />
+            <span class="date">December 18, 2017</span>
+          </div>
+          <div class="dish d1">
+            <img
+              src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
+              alt=""
+            />
+            Green Bean Salad <br />
+            <span class="date">December 18, 2017</span>
+          </div>
+          <div class="dish d1">
+            <img
+              src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
+              alt=""
+            />
+            Green Bean Salad <br />
+            <span class="date">December 18, 2017</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">Menu</div>
+
+    <script>
+      eleButton = document.querySelectorAll(".page");
+    </script>
   </body>
 </html>

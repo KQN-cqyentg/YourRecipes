@@ -4,10 +4,11 @@
     box-sizing: border-box;
 }
 .container {
-    margin: 0;    
+    margin: 0 50px;
+    padding: 50px 0;   
+    width: 93%; 
 }
 .head {
-    
     background: ghostwhite;
     width: 100%;
 }
@@ -15,18 +16,83 @@
     margin: 0 0;
     padding: 10px 0;
     text-align: center;
-    background: rgb(190, 246, 255)
+    background: ghostwhite;
 }
 .logo {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    font-size: 30px;
+    font-size: 50px;
     color: rgb(13, 79, 90)
     
 }
-.body {
-    background: seashell;
+.pages {
+    margin: 0 50px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgb(211, 215, 216);
+    border-bottom: 1.5px solid rgb(211, 215, 216);
+;
+}
+.page {
+    background: white;
+    border: white;
+    padding: 20px 50px;
+    color: gray;
+    display: block;
+    
+}
+/* .p {
+    background: rgb(208, 240, 204);
+} */
+a {
+    text-decoration: none;
+    color: gray;
+    font-size: 25px;
+}
+
+.dishes {
+    margin: 20px 0;
+    padding: 10 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+.dishes img {
+    width: 250px;
+}
+.pop-d {
+    padding: 5px;
+    border-bottom: 3px solid rgb(51, 106, 85);
+    font-size: 25px;
+}
+.dish {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    
+    border: 1px solid ghostwhite;
+    font-size: 25px;
+}
+.letter {
+    padding: 15px 5px;
+}
+.date {
+    margin: 0 5px;
+    font-size: 18px; 
+    color: grey;
+}
+
+.footer {
+    background: rgb(208, 240, 204);
     width: 100%;
+    padding: 20px;
 }
