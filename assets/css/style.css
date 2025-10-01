@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 /* All file */
+.container {
+    margin: 0 0;
+    padding: 0 0;
+    width: 100%;
+}
+.header {
+    padding: 0 0;
+    margin: 0 0;
+}
 .one {
     margin: 0 0;
     padding: 10px 0;
@@ -19,15 +28,16 @@
     color: rgb(13, 79, 90)
 }
 .pages {
-    margin: 0 50px;
+    margin: 0 100px;
     padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     border-top: 1px solid rgb(211, 215, 216);
     border-bottom: 1.5px solid rgb(211, 215, 216);
+    
 ;
 }
 .page {
@@ -35,23 +45,37 @@
     border: white;
     padding: 20px 50px;
     color: gray;
-    display: block;
-    
+    width: 350px;   
+    border-bottom: white; 
+    transition: 0.2s;
 }
 /* .p {
     background: oldlace;
 } */
+.pages button:hover {
+    background: rgb(252, 246, 234);
+    color: rgb(116, 133, 38);
+}
+.pages a:hover {
+    color: rgb(116, 133, 38);
+}
 .pages a {
     text-decoration: none;
-    color: gray;
-    font-size: 30px;
+    color: rgb(86, 86, 86);
+    font-size: 25px;
+    transition: 0.3s;
 }
-
 
 .footer {
     background: rgb(252, 246, 234);
     width: 100%;
     padding: 30px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: baseline;
 }
 .navigate {
     padding: 0 50px;
@@ -62,47 +86,73 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    
+}
+.part_children a:hover {
+    transform: translateY(-5px);
+    text-decoration: underline;
 }
 .part span {
     color: rgb(116, 133, 38);
-    font-size: 30px;
+    font-size: 33px;
 }
 .part a {
     text-decoration: none;
-    color: gray;
+    color: rgb(86, 86, 86);
+    transition: 0.3s;
+}
+.web_address {
+    font-size: 20px;
+    color: grey;
+}
+.web_address a {
+    text-decoration: none;
+    color: rgb(86, 86, 86);
+}
+.web_address a:hover {
+    text-decoration: underline;
 }
 
 
 
 /* Trang Menu */
-.container {
-    margin: 0 50px;
+.container_body {
+    margin: 0 100px;
     padding: 50px 0;   
-    width: 100%; 
+    width: 85%; 
 }
 .dishes {
-    margin: 25px 0;
-    padding: 10px 0;
-    display: flex;
+    margin: 20px 0;
+    padding: 20px 0;
+    display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+
+    white-space: normal;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
 }
 .dishes img {
-    width: 275px;
+    width: 270px;
+    height: 150px;
+    border-radius: 10px;
 }
 .pop-d {
     padding: 5px;
-    border-bottom: 3px solid rgb(51, 106, 85);
+    border-bottom: 3px solid rgb(13, 79, 90);
     font-size: 40px;
 }
 .dish {
-    margin: 0 10px;
-    width: 350px;
+    margin: 15px 0px;
+    padding: 0 0;
+    margin-right: 25px;
+    width: 270px;
     white-space: normal;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
     
@@ -118,7 +168,7 @@
     color: black;
 }
 .letter {
-    padding: 15px 5px;
+    padding: 10px 5px;
     
 }
 .date {
@@ -126,4 +176,86 @@
     font-size: 20px; 
     color: grey;
 }
-
+.loadmore {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.loadmore button {
+    background: white;
+    padding: 15px 100px;
+    border-radius: 1px;
+    border: 1px solid grey;
+    transition: 0.3s;
+}
+.loadmore button:hover {
+    transform: translateY(+5px);
+}
+.loadmore a {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+/* Slides */
+      .slideshow {
+        margin-top: 25px;
+        margin-bottom: 75px;
+        position: relative;
+        width: 100%;
+        height: 450px;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+      .slideshow img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+      .slideshow img.active {
+        opacity: 1;
+      }
+      .caption {
+        position: absolute;
+        bottom: 50%;
+        left: 25%;
+        color: white;
+        font-size: 20px;
+        text-shadow: 0 0 5px #000;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.6s;
+      }
+      .caption a {
+        text-decoration: none;
+        color: white;
+        font-size: 30px;
+      }
+      .slideshow img.active + .caption {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .slideshow button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+        opacity: 0;
+        transition: 0.3s;
+      }
+      .slideshow:hover button {
+        opacity: 1;
+      }
+      .prev {
+        left: 10px;
+      }
+      .next {
+        right: 10px;
+      }
+/* /Slides */
