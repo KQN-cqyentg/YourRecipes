@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Thanh Navbar -->
+      <div class="header">
+        <div class="one">
+          <h1 class="logo">
+            <img src="./assets/img/recetas.png" alt="logo" /><b>Your Recipes</b>
+          </h1>
+        </div>
+        <div class="pages">
+          <button class="page pHome"><a href="./index.html">Home</a></button>
+          <button class="page pDishes">
+            <a href="./list_dishes.html">List of dishes</a>
+          </button>
+          <button class="page pAbout"><a href="./about.html">About</a></button>
+        </div>
+      </div>
+      <!-- /Thanh Navbar -->
+
+      <div class="container_body"></div>
+
+      <!-- Chân trang -->
+      <div class="footer">
+        <div class="part navigate">
+          <span>Navigate</span>
+          <div class="part_children">
+            <a href="./index.html">Home</a> <br />
+            <a href="./list_dishes.html">List of dishes</a> <br />
+            <a href="./about.html">About</a>
+          </div>
+        </div>
+
+        <div class="web_address">
+          © 2025 <a href="./index.html">YourRecipes</a> - Find your favourite
+          recipes by KieuQuynhNgan.
+        </div>
+      </div>
+      <!-- /Chân trang -->
+    </div>
+
+    <script>
+      eleButton = document.querySelectorAll(".page");
+
+      let index = 0;
+      const slides = document.querySelectorAll(".slideshow img");
+      function show(step) {
+        slides[index].classList.remove("active");
+        index = (index + step + slides.length) % slides.length;
+        slides[index].classList.add("active");
+      }
+    </script>
+  </body>
+</html>
