@@ -176,6 +176,21 @@
     font-size: 20px; 
     color: grey;
 }
+.read_continue {
+    background: white;
+    background: white;
+    padding: 7px 20px;
+    border-radius: 1px;
+    border: 1px solid grey;
+    transition: 0.3s;
+}
+.read_continue:hover {
+    background: rgb(211, 221, 169);
+}
+.read_continue a:hover {
+    color: white;
+}
+
 .loadmore {
     text-align: center;
     margin-bottom: 50px;
@@ -189,6 +204,10 @@
 }
 .loadmore button:hover {
     transform: translateY(+5px);
+    border: 1px solid gainsboro;
+}
+.loadmore a:hover {
+    color: grey;
 }
 .loadmore a {
     text-decoration: none;
@@ -259,3 +278,47 @@
         right: 10px;
       }
 /* /Slides */
+
+
+
+/* Trang list dishes */
+.Cipe {
+    font-size: 50px;
+}
+.recipe_list {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.recipe_list img {
+    width: 575px;
+    margin: 0 0;
+}
+.recipe {
+    width: 1150px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    border: 2px solid ghostwhite;
+    display: flex;
+
+}
+.infor {
+    padding: 10px 20px;
+}
+.infor a {
+    text-decoration: none;
+    color: black;
+    font-size: 35px;
+}
+.infor span {
+    color: grey;
+    font-size: 20px;
+}
+.infor p {
+    color: rgb(86, 86, 86);
+    font-size: 20px;
+    margin: 5px 0;
+}
+/* /Trang list dishes */
