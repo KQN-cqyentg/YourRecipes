@@ -28,10 +28,7 @@
       <div class="container_body">
         <!-- Slide -->
         <div class="slideshow">
-          <img
-            src="./assets/img/Portrait of morning serenity cappuccino on a saucer _ Premium AI-generated image.jfif"
-            class="active d1"
-          />
+          <img src="./assets/img/Bánh tart.jfif" class="active d1" />
           <!-- <div class="caption d1">
             <a href="./list_dishes.html"
               >Green Bean Salad with Almonds & Feta</a
@@ -39,22 +36,22 @@
           </div> -->
 
           <img
-            src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
+            src="./assets/img/🥗🥓 Green Bean Salad with Bacon, Pecans, Cranberries & Feta 🧄🍯__Looking for a salad that’s anything but boring_ This Green Bean Salad is loaded with crispy bacon, crunchy pecans, sweet cranberries, and creamy f. 🥬✨"
             class="d2"
           />
           <!-- <div class="caption d2">Ảnh 2 - Caption xuất hiện khi đổi ảnh</div> -->
+
           <img
             src="./assets/img/Portrait of morning serenity cappuccino on a saucer _ Premium AI-generated image.jfif"
             class="d3"
           />
 
-          <div class="caption d3">Ảnh 3 - Hiệu ứng fade đơn giản</div>
+          <!-- <div class="caption d3">Ảnh 3 - Hiệu ứng fade đơn giản</div> -->
 
-          <img
-            src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
-            class="d4"
-          />
-          <div class="caption d4">Ảnh 4</div>
+          <img src="./assets/img/Trung thu - Liam Production.jfif" class="d4" />
+
+          <!-- <div class="caption d4">Ảnh 4</div> -->
+
           <button class="prev" onclick="show(-1)">❮</button>
           <button class="next" onclick="show(1)">❯</button>
         </div>
@@ -64,61 +61,16 @@
         <div class="pop-dish">
           <span class="pop-d"><b>Popular Recipe</b></span>
           <div class="dishes">
-            <div class="dish d1">
+            <!-- <div class="dish">
               <img
-                src="./assets/img/Portrait of morning serenity cappuccino on a saucer _ Premium AI-generated image.jfif"
-                alt=""
+                src="./assets/img/🥗🥓 Green Bean Salad with Bacon, Pecans, Cranberries & Feta 🧄🍯__Looking for a salad that’s anything but boring_ This Green Bean Salad is loaded with crispy bacon, crunchy pecans, sweet cranberries, and creamy f. 🥬✨"
+                alt="d1"
               />
               <div class="letter">
                 <a href="">Green Bean Salad with Almonds & Feta</a> <br />
                 <span class="date">December 18, 2017</span>
               </div>
-              <!-- <button class="read_continue">
-                <a href="./list_dishes.html">CONTINUE</a>
-              </button> -->
-            </div>
-
-            <div class="dish d2">
-              <img
-                src="./assets/img/Portrait of morning serenity cappuccino on a saucer _ Premium AI-generated image.jfif"
-                alt=""
-              />
-              <div class="letter">
-                <a href="">Green Bean Salad</a> <br />
-                <span class="date">December 18, 2017</span>
-              </div>
-              <!-- <button class="read_continue">
-                <a href="./list_dishes.html">CONTINUE</a>
-              </button> -->
-            </div>
-
-            <div class="dish d3">
-              <img
-                src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
-                alt=""
-              />
-              <div class="letter">
-                <a href="">Green Bean Salad</a> <br />
-                <span class="date">December 18, 2017</span>
-              </div>
-              <!-- <button class="read_continue">
-                <a href="./list_dishes.html">CONTINUE</a>
-              </button> -->
-            </div>
-
-            <div class="dish d4">
-              <img
-                src="./assets/img/Charming Food Background Google Slides & PPT template.jfif"
-                alt=""
-              />
-              <div class="letter">
-                <a href="">Green Bean Salad</a> <br />
-                <span class="date">December 18, 2017</span>
-              </div>
-              <!-- <button class="read_continue">
-                <a href="./list_dishes.html">CONTINUE</a>
-              </button> -->
-            </div>
+            </div> -->
           </div>
           <div class="loadmore">
             <button class="loadmore">
@@ -149,7 +101,38 @@
     </div>
 
     <script>
-      eleButton = document.querySelectorAll(".page");
+      let eleDishes = document.querySelector(".dishes");
+
+      const url_api =
+        "https://jsa44.nextgentra.com/api/nganposts?populate[image][populate]=*";
+      const api_key =
+        "a77380280a76ea2811b475dbbcea8aeee3862a3ecb75ca0333a232116b093b2124cc0ca47b8befd91d03cf70e66940c1b8c75239f083dd96b54a2f937102928c6be43096d0d6f041d0d39d0950f7ab4e2009514eceaa70e6ff0e974c16a77d2bdf1a31b657fd74d022ad28815283bdbbe2c0dcb556c3a79ee5b4ec26b6a16d53";
+      fetch(url_api, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${api_key}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((resp) => {
+          console.log(resp);
+          console.log(eleDishes);
+
+          for (let i = 0; i < resp.data.length; i++) {
+            console.log(resp.data[i]);
+
+            eleDishes.innerHTML += `
+            <div class="dish">
+              <img src="${resp.data[i].image}" alt="" />
+              <div class="letter">
+                <a href="">${resp.data[i].title}</a> <br />
+                <span class="date">${resp.data[i].createdAt}</span>
+              </div>
+            </div>
+            `;
+          }
+        });
 
       let index = 0;
       const slides = document.querySelectorAll(".slideshow img");

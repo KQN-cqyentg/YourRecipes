@@ -124,15 +124,19 @@
 .dishes {
     margin: 20px 0;
     padding: 20px 0;
-    display: inline-flex;
+    /* display: inline-flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; */
     justify-content: space-between;
 
     white-space: normal;
     overflow: hidden;
     width: 100%;
     border-radius: 10px;
+
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 8px;
 }
 .dishes img {
     width: 270px;
@@ -292,10 +296,15 @@
     flex-direction: column;
     flex-wrap: nowrap;
     overflow: hidden;
+
+    display: grid;
+    grid-template-columns: repeat(4);
+    gap: 8px;
 }
 .recipe_list img {
     width: 575px;
     margin: 0 0;
+    border-radius: 10px;
 }
 .recipe {
     width: 1150px;
@@ -303,6 +312,7 @@
     margin-bottom: 40px;
     border: 2px solid ghostwhite;
     display: flex;
+    border-radius: 10px;
 
 }
 .infor {
