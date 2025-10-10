@@ -142,7 +142,7 @@
 .pop-d {
     padding: 5px;
     border-bottom: 3px solid rgb(13, 79, 90);
-    font-size: 40px;
+    font-size: 45px;
 }
 .dish {
     margin: 15px 0px;
@@ -176,20 +176,21 @@
     font-size: 20px; 
     color: grey;
 }
-.read_continue {
+/* .read_continue {
     background: white;
     background: white;
     padding: 7px 20px;
     border-radius: 1px;
     border: 1px solid grey;
     transition: 0.3s;
+    margin: 0 75px;
 }
 .read_continue:hover {
     background: rgb(211, 221, 169);
 }
 .read_continue a:hover {
     color: white;
-}
+} */
 
 .loadmore {
     text-align: center;
@@ -322,3 +323,12 @@
     margin: 5px 0;
 }
 /* /Trang list dishes */
+
+
+/* Trang about */
+.web_introduce {
+    margin: 20px 0;
+    font-size: 25px;
+    color: rgb(86, 86, 86);
+}
+/* /Trang about */
