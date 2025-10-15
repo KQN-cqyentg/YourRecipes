@@ -71,6 +71,7 @@
                 <span class="date">December 18, 2017</span>
               </div>
             </div> -->
+            
           </div>
           <div class="loadmore">
             <button class="loadmore">
@@ -124,10 +125,10 @@
 
             eleDishes.innerHTML += `
             <div class="dish">
-              <img src="${resp.data[i].image}" alt="" />
+              <img src="${resp.data[i].image.url}" alt="" />
               <div class="letter">
                 <a href="">${resp.data[i].title}</a> <br />
-                <span class="date">${resp.data[i].createdAt}</span>
+                <span class="date">${resp.data[i].content}</span>
               </div>
             </div>
             `;
