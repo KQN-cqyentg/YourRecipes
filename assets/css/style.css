@@ -151,8 +151,8 @@
 .dish {
     margin: 15px 0px;
     padding: 0 0;
-    margin-right: 25px;
-    width: 270px;
+    margin-right: 22px;
+    width: 265px;
     white-space: normal;
     display: inline-flex;
     flex-direction: column;
@@ -220,7 +220,7 @@
     font-size: 15px;
 }
 /* Slides */
-      .slideshow {
+      /* .slideshow {
         margin-top: 25px;
         margin-bottom: 75px;
         position: relative;
@@ -281,7 +281,7 @@
       }
       .next {
         right: 10px;
-      }
+      } */
 /* /Slides */
 
 
