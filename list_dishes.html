@@ -33,7 +33,7 @@
         <div class="list">
           <span class="Cipe"><b>Recipe</b></span>
           <div class="recipe_list">
-            <div class="recipe rc1">
+            <!-- <div class="recipe rc1">
               <div>
                 <img
                   src="./assets/img/Broad Bean Salad with Feta and Almonds.jfif"
@@ -54,97 +54,9 @@
                   - 2 tablespoons chopped fresh parsley leaves
                 </p>
               </div>
-            </div>
+            </div> -->
 
-            <div class="recipe rc2">
-              <div>
-                <img src="./assets/img/Bánh tart.jfif" alt="Bánh tart" />
-              </div>
-              <div class="infor">
-                <a href="./list_dishes.html">Tart Golden Cheese</a>
-                <br />
-                <span><i>October 16, 2024</i></span> <br />
-                <p>
-                  # Ingredients: <br />
-                  Vanilla, pie, egg, whole milk, salt, cornstarch, baking
-                  powder, butter, egg yolks, flour, powdered sugar, sugar.
-                  <br />
-                  # To assemble the fruit tart: <br />
-                  1. Fill cooled tart crust with chilled pastry cream. <br />
-
-                  2. Pastry cream in a tart crust. <br />
-                  3. Arrange fruit in a decorative pattern. <br />
-                  4. A whole, unsliced fresh fruit tart. <br />
-                  5. Using a pastry brush, brush fruit with melted apricot glaze
-                  (reheat as necessary if glaze cools and becomes too sticky).
-                </p>
-              </div>
-            </div>
-
-            <div class="recipe rc3">
-              <div>
-                <img
-                  src="./assets/img/Món cahr lụa, mì,....jfif"
-                  alt="Món chả lụa"
-                />
-              </div>
-              <div class="infor">
-                <a href="./list_dishes.html">Spring Rolls</a>
-                <br />
-                <span><i>June 6, 2025</i></span> <br />
-                <p>
-                  # How to Make Spring Rolls: <br />
-                  1. Cook the noodles. <br />
-                  2. Soften each wrapper in warm water, then add the filling
-                  ingredients. <br />
-                  3. Fold and roll each spring roll. <br />
-                  4. Make the sauces to serve with the spring rolls. <br />
-                  # Ingredients: <br />
-                  - 2 ounces rice vermicelli noodles <br />
-                  - 8 rice wrappers (8.5 inch diameter) <br />
-                  - 8 large cooked shrimp - peeled, deveined and cut in half
-                  <br />
-                  - 2 leaves lettuce, chopped <br />
-                  - 3 tablespoons chopped fresh mint leaves <br />
-                  - 3 tablespoons chopped fresh cilantro <br />
-                  - 1 ⅓ tablespoons chopped fresh Thai basil
-                </p>
-              </div>
-            </div>
-
-            <div class="recipe rc4">
-              <div>
-                <img
-                  src="./assets/img/Trung thu - Liam Production.jfif"
-                  alt="Bánh trung thu"
-                />
-              </div>
-              <div class="infor">
-                <a href="./list_dishes.html">Mooncake</a>
-                <br />
-                <span><i>September 23, 2025</i></span> <br />
-                <p>
-                  # Tips:
-                  1. Rest the dough for a while to avoid tearing. <br />
-                  2. Use shop-bought lotus seed paste (or other fillings) to
-                  speed up the process. <br />
-                  3. Be attentive while baking. Adjust the time if necessary.
-                  <br />
-                  4. Make sure to keep the egg wash thin to achieve a clear
-                  pattern. <br />
-                  5. These mooncakes need to be rested before serving. <br />
-                  6. Watching the tutorial video helps a lot. <br />
-                  # Ingredients: <br />
-                  - Golden syrup <br />
-                  - Lye water <br />
-                  - Neutral cooking oil <br />
-                  - All-purpose flour (plain flour) <br />
-                  - Dried lotus seed <br />
-                  - Sugar <br />
-                  - Neutral cooking oil <br />
-                </p>
-              </div>
-            </div>
+            <br />
           </div>
         </div>
       </div>
@@ -168,6 +80,52 @@
       <!-- /Chân trang -->
     </div>
 
-    <script></script>
+    <script type="module">
+      let eleRecipe_list = document.querySelector(".recipe_list");
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+      import {
+        collection,
+        getDocs,
+        getFirestore,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDl8yPDCfPIn_LLrXPRqa1BXvQXIA54_-I",
+        authDomain: "jsi36-644e1.firebaseapp.com",
+        projectId: "jsi36-644e1",
+        storageBucket: "jsi36-644e1.firebasestorage.app",
+        messagingSenderId: "156685119367",
+        appId: "1:156685119367:web:d379c9de457e28ee806d22",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      const db = getFirestore(app);
+
+      const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+
+        eleRecipe_list.innerHTML += `
+        <div class="recipe">
+              <div>
+                <img src="${doc.data().img}" alt="..." />
+              </div>
+              <div class="infor">
+                <a href="./list_dishes.html">${doc.data().title}</a>
+                <br />
+                <span><i>${doc.data().date_created}</i></span> <br />
+                <p>${doc.data().des}</p>
+              </div>
+            </div>
+        `;
+      });
+    </script>
   </body>
 </html>

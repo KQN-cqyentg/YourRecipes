@@ -16,7 +16,9 @@
           </h1>
           <div class="OurUser">
             <button class="btnLogin"><a href="./login.html">Log in</a></button>
-            <button class="btnRegister"><a href="">Register</a></button>
+            <button class="btnRegister">
+              <a href="./register.html">Register</a>
+            </button>
           </div>
         </div>
         <div class="pages">
@@ -73,7 +75,50 @@
       <!-- /Chân trang -->
     </div>
 
-    <script>
+    <script type="module">
+      let eleDishes = document.querySelector(".dishes");
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+      import {
+        collection,
+        getDocs,
+        getFirestore,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDl8yPDCfPIn_LLrXPRqa1BXvQXIA54_-I",
+        authDomain: "jsi36-644e1.firebaseapp.com",
+        projectId: "jsi36-644e1",
+        storageBucket: "jsi36-644e1.firebasestorage.app",
+        messagingSenderId: "156685119367",
+        appId: "1:156685119367:web:d379c9de457e28ee806d22",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      const db = getFirestore(app);
+
+      const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+
+        eleDishes.innerHTML += `
+        <div class="dish">
+              <img src="${doc.data().img}" alt="" />
+              <div class="letter">
+                <a href="./list_dishes.html">${doc.data().title}</a> <br />
+                <span class="date">${doc.data().date_created}</span>
+              </div>
+            </div>
+        `;
+      });
+    </script>
+    <!-- <script>
       let eleDishes = document.querySelector(".dishes");
 
       const url_api =
@@ -106,6 +151,6 @@
             `;
           }
         });
-    </script>
+    </script> -->
   </body>
 </html>
