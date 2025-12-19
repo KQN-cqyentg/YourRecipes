@@ -20,12 +20,11 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    text-align: center;
 
-    padding: 20px;
+    padding: 20px 40px;
     border: 1px gray solid;
     border-radius: 10px;
-    width: 350px;
+    width: 300px;
     margin: 2.5% auto;
     border: rgb(116, 133, 38) 2.5px solid;
 
@@ -35,27 +34,32 @@ form h2 {
     font-size: 60px;
     margin: 10px 0;
     color: rgb(83, 97, 22);
+    text-align: center;
 }
 /* form lable {
     font-size: 20px;
     color: rgb(83, 97, 22);
 } */
 form input {
-    width: 85%;
+    width: 90%;
     margin: 15px 0;
     border-radius: 5px;
     border: rgb(116, 133, 38) 2.3px solid;
     padding: 15px;
     font-size: 20px;
 
+    color: grey;
+
 }
 form button {
     font-size: 20px;
-    margin: 10px 0;
-    padding: 10px 40px;
+    margin: 15px 0;
+    padding: 13px 40px;
+    width: 100%;    
 
-    background: rgb(255, 250, 238);;
-    color: rgb(83, 97, 22);
+    background: rgb(116, 133, 38);;
+    /* color: rgb(83, 97, 22); */
+    color: white;
     border: rgb(116, 133, 38) 2.5px solid;
     border-radius: 5px;
 
@@ -67,10 +71,11 @@ form button {
     color: rgb(83, 97, 22);
 } */
 form button:hover {
-    background: rgb(255, 252, 244);
-    color: rgb(116, 133, 38);
-    border: rgb(149, 162, 92) 2.5px solid;
-    transform: scale(1.1);
+    /* background: rgb(255, 252, 244); */
+    background: rgb(83, 97, 22);
+    color: rgb(255, 252, 244);
+    border: rgb(83, 97, 22) 2.5px solid;
+    /* border: rgb(149, 162, 92) 2.5px solid; */
 }
 /* form button a:hover {
     color: rgb(83, 97, 22);

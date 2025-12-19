@@ -13,6 +13,8 @@
           <h2>Register</h2>
           <input type="text" id="fullname" placeholder="Fullname" />
 
+          <input type="date" id="birth">
+
           <input type="text" id="username" placeholder="Username" />
 
           <input type="password" id="password" placeholder="Password" />
@@ -60,6 +62,7 @@
       function handleReg() {
         // Lấy dữ liệu:
         let valueFulln = document.querySelector("#fullname").value;
+        let valueBirth = document.querySelector("#birth").value;
         let valueUser = document.querySelector("#username").value;
         let valuePass = document.querySelector("#password").value;
         let valueConfPass = document.querySelector("#confirmpassword").value;
