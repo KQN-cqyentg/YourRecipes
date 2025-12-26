@@ -15,7 +15,9 @@
             <img src="./assets/img/recetas.png" alt="logo" /><b>Your Recipes</b>
           </h1>
           <div class="OurUser">
-            <button class="btnProfile hidden"><a href="./admin.html">👤 Admin</a></button>
+            <button class="btnProfile hidden">
+              <a href="./admin.html">👤 Admin</a>
+            </button>
             <p class="email_admin"></p>
             <button class="btnLogout hidden">Log out</button>
 
@@ -35,7 +37,9 @@
 
       <div class="container_body">
         <div class="list">
-          <div class="Cipe"><div><b>Recipe</b></div></div>
+          <div class="Cipe">
+            <div><b>Recipe</b></div>
+          </div>
           <div class="recipe_list">
             <!-- <div class="recipe rc1">
               <div>
@@ -104,6 +108,11 @@
         getDocs,
         getFirestore,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -119,9 +128,44 @@
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
-
+      const auth = getAuth(app);
       const db = getFirestore(app);
 
+      let currentUser = null;
+      let selectedFile = null;
+      let currentAvatarUrl = null;
+
+      //Kiểm tra đăng nhập
+      let btnProfile = document.querySelector(".btnProfile");
+      let email_admin = document.querySelector(".email_admin");
+      let btn_Logout = document.querySelector(".btnLogout");
+      let btn_Login = document.querySelector(".btnLogin");
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          btnProfile.classList.remove("hidden");
+          btn_Logout.classList.remove("hidden");
+          btn_Login.classList.add("hidden");
+          currentUser = user;
+          email_admin.textContent = user.email;
+          loadRooms();
+        } else {
+          btnProfile.classList.add("hidden");
+          email_admin.textContent = "";
+          btn_Logout.classList.add("hidden");
+          btn_Login.classList.remove("hidden");
+        }
+      });
+      // Đăng xuất
+      btn_Logout.addEventListener("click", async () => {
+        await signOut(auth);
+        btnProfile.classList.add("hidden");
+        email_admin.textContent = "";
+        btn_Logout.classList.add("hidden");
+        btn_Login.classList.remove("hidden");
+      });
+
+      // Hiển thị dữ liệu các món ăn
       const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
       querySnapshot.forEach((doc) => {
         console.log(doc.data());

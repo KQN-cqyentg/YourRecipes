@@ -15,7 +15,9 @@
             <img src="./assets/img/recetas.png" alt="logo" /><b>Your Recipes</b>
           </h1>
           <div class="OurUser">
-            <button class="btnProfile hidden"><a href="./admin.html">👤 Admin</a></button>
+            <button class="btnProfile hidden">
+              <a href="./admin.html">👤 Admin</a>
+            </button>
             <p class="email_admin"></p>
             <button class="btnLogout hidden">Log out</button>
 
@@ -34,23 +36,25 @@
       <!-- /Thanh Navbar -->
 
       <div class="container_body">
-        <form action="">
-          <h2>Profile</h2>
+        <div class="profile_page">
+          <form action="">
+            <h2>Profile</h2>
 
-          <label for="">Fullname:</label>
-          <input type="text" id="fullname" placeholder="Fullname" />
+            <label for="">Fullname:</label>
+            <input type="text" id="fullname" placeholder="Fullname" />
 
-          <label for="">Birthday:</label>
-          <input type="date" id="birth">
+            <label for="">Birthday:</label>
+            <input type="date" id="birth" />
 
-          <label for="">Username:</label>
-          <input type="text" id="username" placeholder="Username" />
+            <label for="">Username:</label>
+            <input type="text" id="username" placeholder="Username" disabled />
 
-          <div>
-            <button type="button" class="btnSave">Save changes</button>
-            <button type="button" class="btnCancle">Cancel</button>
-          </div>
-        </form>
+            <div>
+              <button type="button" class="btnSave">Save changes</button>
+              <button type="button" class="btnCancle">Cancel</button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <!-- Chân trang -->
@@ -82,6 +86,111 @@
       <!-- /Chân trang -->
     </div>
 
-    <script></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+        updateProfile,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDl8yPDCfPIn_LLrXPRqa1BXvQXIA54_-I",
+        authDomain: "jsi36-644e1.firebaseapp.com",
+        projectId: "jsi36-644e1",
+        storageBucket: "jsi36-644e1.firebasestorage.app",
+        messagingSenderId: "156685119367",
+        appId: "1:156685119367:web:d379c9de457e28ee806d22",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      let currentUser = null;
+      let selectedFile = null;
+      let currentAvatarUrl = null;
+
+      //<form action="">
+      //    <h2>Profile</h2>
+      //
+      //          <label for="">Fullname:</label>
+      //        <input type="text" id="fullname" placeholder="Fullname" />
+      //
+      //          <label for="">Birthday:</label>
+      //        <input type="date" id="birth" />
+      //
+      //          <label for="">Username:</label>
+      //        <input type="text" id="username" placeholder="Username" disabled />
+
+      //          <div>
+      //          <button type="button" class="btnSave">Save changes</button>
+      //        <button type="button" class="btnCancle">Cancel</button>
+      //    </div>
+      //</form>
+
+      // Tải thông tin người dùng
+      let fullname = document.querySelector("#fullname");
+      let birth = document.querySelector("#birth");
+      let username = document.querySelector("#username");
+
+      async function loadUserProfile() {
+        try {
+          const docRef = doc(db, "users", currentUser.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            fullname.value = userData.fullName || "";
+            birth.value = userData.birthDate || "";
+          }
+
+          document.getElementById("email").value = currentUser.email;
+        } catch (error) {
+          console.error("Lỗi tải dữ liệu:", error);
+        }
+      }
+
+      //Kiểm tra đăng nhập
+      let btnProfile = document.querySelector(".btnProfile");
+      let email_admin = document.querySelector(".email_admin");
+      let btn_Logout = document.querySelector(".btnLogout");
+      let btn_Login = document.querySelector(".btnLogin");
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          btnProfile.classList.remove("hidden");
+          btn_Logout.classList.remove("hidden");
+          btn_Login.classList.add("hidden");
+          currentUser = user;
+          email_admin.textContent = user.email;
+          loadRooms();
+        } else {
+          btnProfile.classList.add("hidden");
+          email_admin.textContent = "";
+          btn_Logout.classList.add("hidden");
+          btn_Login.classList.remove("hidden");
+        }
+      });
+      // Đăng xuất
+      btn_Logout.addEventListener("click", async () => {
+        await signOut(auth);
+        btnProfile.classList.add("hidden");
+        email_admin.textContent = "";
+        btn_Logout.classList.add("hidden");
+        btn_Login.classList.remove("hidden");
+      });
+    </script>
   </body>
 </html>

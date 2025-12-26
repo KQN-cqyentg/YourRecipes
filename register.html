@@ -9,11 +9,11 @@
   <body>
     <div class="container">
       <div class="form">
-        <form action="">
+        <form action="" id="registerForm">
           <h2>Register</h2>
           <input type="text" id="fullname" placeholder="Fullname" />
 
-          <input type="date" id="birth">
+          <input type="date" id="birth" />
 
           <input type="text" id="username" placeholder="Username" />
 
@@ -38,7 +38,13 @@
       import {
         getAuth,
         createUserWithEmailAndPassword,
+        updateProfile,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -54,19 +60,24 @@
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
-
       const auth = getAuth(app);
+      const db = getFirestore(app);
 
       let btnAdd = document.querySelector(".btnRegister");
+      let valueFulln = document.querySelector("#fullname").value;
+      let valueBirth = document.querySelector("#birth").value;
+      let valueUser = document.querySelector("#username").value;
+      let valuePass = document.querySelector("#password").value;
+      let valueConfPass = document.querySelector("#confirmpassword").value;
+
+      const registerForm = document.getElementById("registerForm");
 
       function handleReg() {
-        // Lấy dữ liệu:
         let valueFulln = document.querySelector("#fullname").value;
         let valueBirth = document.querySelector("#birth").value;
         let valueUser = document.querySelector("#username").value;
         let valuePass = document.querySelector("#password").value;
         let valueConfPass = document.querySelector("#confirmpassword").value;
-
         //=> Mời gọi đến hàm createUserWithEmailAndPassword
         if (
           (valuePass == valueConfPass) &
@@ -77,9 +88,8 @@
           createUserWithEmailAndPassword(auth, valueUser, valuePass)
             .then((item) => {
               console.log(item);
-              alert("Đăng ký thành công!")
+              alert("Đăng ký thành công!");
               window.location.href = "login.html";
-
             })
             .catch((err) => {
               console.log("Lỗi không đăng ký được!", err.message);
@@ -93,7 +103,13 @@
           //=> Ngược lại => sử dụng innerHTML để hiện thị lỗi
           console.log("Mật khẩu chưa khớp!!!");
           alert("Mật khẩu chưa khớp!!!");
-        } else {
+        }
+        if (
+          (valuePass = "") ||
+          (valueConfPass = "") ||
+          (valueFulln = "") ||
+          (valueUser = "")
+        ) {
           console.log("Tên đăng nhập hoặc mật khẩu chưa được điền!");
           alert("Tên đăng nhập hoặc mật khẩu chưa được điền!");
         }

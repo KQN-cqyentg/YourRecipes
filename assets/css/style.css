@@ -33,7 +33,7 @@
     align-items: center;
 }
 .hidden {
-    display: block;
+    display: none;
 }
 .OurUser button {
     margin: 0 5px;
@@ -333,3 +333,15 @@
     color: rgb(86, 86, 86);
 }
 /* /Trang about */
+
+
+
+/* Trang admin */
+.profile_page form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: baseline;
+}
+/* /Trang admin */
