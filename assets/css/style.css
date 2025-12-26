@@ -33,7 +33,7 @@
     align-items: center;
 }
 .hidden {
-    display: none;
+    display: block;
 }
 .OurUser button {
     margin: 0 5px;
