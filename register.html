@@ -64,58 +64,117 @@
       const db = getFirestore(app);
 
       let btnAdd = document.querySelector(".btnRegister");
-      let valueFulln = document.querySelector("#fullname").value;
-      let valueBirth = document.querySelector("#birth").value;
-      let valueUser = document.querySelector("#username").value;
-      let valuePass = document.querySelector("#password").value;
-      let valueConfPass = document.querySelector("#confirmpassword").value;
 
-      const registerForm = document.getElementById("registerForm");
+      btnAdd.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-      function handleReg() {
-        let valueFulln = document.querySelector("#fullname").value;
+        let valueFulln = document.querySelector("#fullname").value.trim();
         let valueBirth = document.querySelector("#birth").value;
         let valueUser = document.querySelector("#username").value;
         let valuePass = document.querySelector("#password").value;
         let valueConfPass = document.querySelector("#confirmpassword").value;
-        //=> Mời gọi đến hàm createUserWithEmailAndPassword
+
         if (
-          (valuePass == valueConfPass) &
-          (valueFulln != "") &
-          (valueUser != "")
+          !valueFulln ||
+          !valueBirth ||
+          !valueUser ||
+          !valuePass ||
+          !valueConfPass
         ) {
-          //=> Mời gọi đến hàm createUserWithEmailAndPassword
-          createUserWithEmailAndPassword(auth, valueUser, valuePass)
-            .then((item) => {
-              console.log(item);
-              alert("Đăng ký thành công!");
-              window.location.href = "login.html";
-            })
-            .catch((err) => {
-              console.log("Lỗi không đăng ký được!", err.message);
-            });
-        }
-        if (
-          (valuePass != "") &
-          (valueConfPass != "") &
-          (valuePass != valueConfPass)
-        ) {
-          //=> Ngược lại => sử dụng innerHTML để hiện thị lỗi
-          console.log("Mật khẩu chưa khớp!!!");
-          alert("Mật khẩu chưa khớp!!!");
-        }
-        if (
-          (valuePass = "") ||
-          (valueConfPass = "") ||
-          (valueFulln = "") ||
-          (valueUser = "")
-        ) {
-          console.log("Tên đăng nhập hoặc mật khẩu chưa được điền!");
           alert("Tên đăng nhập hoặc mật khẩu chưa được điền!");
+          return;
+        }
+
+        if (valuePass !== valueConfPass) {
+          alert("Mật khẩu chưa trùng khớp!");
+          return;
+        }
+
+        try {
+          // Tạo tài khoản
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            valueUser,
+            valuePass
+          );
+          const user = userCredential.user;
+
+          // Cập nhật tên hiển thị
+          await updateProfile(user, {
+            displayName: valueFulln,
+          });
+
+          // Lưu thông tin bổ sung vào Firestore
+          await setDoc(doc(db, "users", user.uid), {
+            fullName: valueFulln,
+            birthDate: valueBirth,
+            email: valueUser,
+            createdAt: new Date().toISOString(),
+          });
+
+          alert("Đăng ký thành công!");
+          window.location.href = "login.html";
+        } catch (error) {
+          console.log("Lỗi không đăng ký được!", error.code);
+        }
+      });
+
+      function getErrorMessage(code) {
+        switch (code) {
+          case "auth/email-already-in-use":
+            return "Email đã được sử dụng";
+          case "auth/invalid-email":
+            return "Email không hợp lệ";
+          case "auth/weak-password":
+            return "Mật khẩu quá yếu (tối thiểu 6 ký tự)";
+          default:
+            return "Đăng ký thất bại. Vui lòng thử lại!";
         }
       }
 
-      btnAdd.addEventListener("click", handleReg);
+      //  function handleReg() {
+      //    let valueFulln = document.querySelector("#fullname").value;
+      //    let valueBirth = document.querySelector("#birth").value;
+      //    let valueUser = document.querySelector("#username").value;
+      //    let valuePass = document.querySelector("#password").value;
+      //    let valueConfPass = document.querySelector("#confirmpassword").value;
+      //=> Mời gọi đến hàm createUserWithEmailAndPassword
+      //    if (
+      //      (valuePass == valueConfPass) &
+      //      (valueFulln != "") &
+      //     (valueUser != "")
+      //    ) {
+      //      //=> Mời gọi đến hàm createUserWithEmailAndPassword
+      //      createUserWithEmailAndPassword(auth, valueUser, valuePass)
+      //        .then((item) => {
+      //          console.log(item);
+      //          alert("Đăng ký thành công!");
+      //          window.location.href = "login.html";
+      //        })
+      //        .catch((err) => {
+      //          console.log("Lỗi không đăng ký được!", err.message);
+      //        });
+      //    }
+      //    if (
+      //      (valuePass != "") &
+      //      (valueConfPass != "") &
+      //      (valuePass != valueConfPass)
+      //    ) {
+      //=> Ngược lại => sử dụng innerHTML để hiện thị lỗi
+      //      console.log("Mật khẩu chưa khớp!!!");
+      //      alert("Mật khẩu chưa khớp!!!");
+      //    }
+      //    if (
+      //      (valuePass = "") ||
+      //      (valueConfPass = "") ||
+      //      (valueFulln = "") ||
+      //      (valueUser = "")
+      //    ) {
+      //      console.log("Tên đăng nhập hoặc mật khẩu chưa được điền!");
+      //      alert("Tên đăng nhập hoặc mật khẩu chưa được điền!");
+      //    }
+      //  }
+      //  btnAdd.addEventListener("click", handleReg); //
     </script>
   </body>
 </html>

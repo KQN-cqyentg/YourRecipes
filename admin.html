@@ -117,50 +117,9 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+      const db = getFirestore(app);
 
       let currentUser = null;
-      let selectedFile = null;
-      let currentAvatarUrl = null;
-
-      //<form action="">
-      //    <h2>Profile</h2>
-      //
-      //          <label for="">Fullname:</label>
-      //        <input type="text" id="fullname" placeholder="Fullname" />
-      //
-      //          <label for="">Birthday:</label>
-      //        <input type="date" id="birth" />
-      //
-      //          <label for="">Username:</label>
-      //        <input type="text" id="username" placeholder="Username" disabled />
-
-      //          <div>
-      //          <button type="button" class="btnSave">Save changes</button>
-      //        <button type="button" class="btnCancle">Cancel</button>
-      //    </div>
-      //</form>
-
-      // Tải thông tin người dùng
-      let fullname = document.querySelector("#fullname");
-      let birth = document.querySelector("#birth");
-      let username = document.querySelector("#username");
-
-      async function loadUserProfile() {
-        try {
-          const docRef = doc(db, "users", currentUser.uid);
-          const docSnap = await getDoc(docRef);
-
-          if (docSnap.exists()) {
-            const userData = docSnap.data();
-            fullname.value = userData.fullName || "";
-            birth.value = userData.birthDate || "";
-          }
-
-          document.getElementById("email").value = currentUser.email;
-        } catch (error) {
-          console.error("Lỗi tải dữ liệu:", error);
-        }
-      }
 
       //Kiểm tra đăng nhập
       let btnProfile = document.querySelector(".btnProfile");
@@ -175,7 +134,7 @@
           btn_Login.classList.add("hidden");
           currentUser = user;
           email_admin.textContent = user.email;
-          loadRooms();
+          loadUserProfile();
         } else {
           btnProfile.classList.add("hidden");
           email_admin.textContent = "";
@@ -191,6 +150,37 @@
         btn_Logout.classList.add("hidden");
         btn_Login.classList.remove("hidden");
       });
+
+      // Tải thông tin người dùng
+      let fullname = document.querySelector("#fullname");
+      let birth = document.querySelector("#birth");
+      let username = document.querySelector("#username");
+
+      async function loadUserProfile() {
+        try {
+          if (!currentUser) return;
+
+          // Email hiện tại -> username (tuỳ logic của bạn)
+          username.value = currentUser.email || "";
+
+          const docRef = doc(db, "users", currentUser.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+
+            // Đổ dữ liệu lên input
+            fullname.value = userData.fullName || "";
+            birth.value = userData.birthDate || "";
+          } else {
+            // Chưa có profile trong Firestore
+            fullname.value = "";
+            birth.value = "";
+          }
+        } catch (error) {
+          console.error("Lỗi tải dữ liệu:", error);
+        }
+      }
     </script>
   </body>
 </html>
