@@ -84,6 +84,7 @@ form button:hover {
 form p {
     font-size: 20px;
     color: rgb(83, 97, 22);
+    text-align: center;
 }
 form p a {
     text-decoration: none;
