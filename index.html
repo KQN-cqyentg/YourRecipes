@@ -16,7 +16,7 @@
           </h1>
           <div class="OurUser">
             <button class="btnProfile">
-              <a href="./admin.html">👤 Admin</a>
+              <a href="./admin.html">👤 Profile</a>
             </button>
             <p class="email_admin"></p>
             <button class="btnLogout">Log out</button>
@@ -32,7 +32,8 @@
           <button class="page pDishes">
             <a href="./list_dishes.html">List of dishes</a>
           </button>
-          <button class="page pAbout"><a href="./about.html">About</a></button>
+          <button class="page pAbout"><a href="./about_contact.html">About & Contact</a></button>
+          <button class="page btnManage"><a href="./manage.html">My Blog</a></button>
         </div>
       </div>
       <!-- /Thanh Navbar -->
@@ -133,9 +134,11 @@
       let email_admin = document.querySelector(".email_admin");
       let btn_Logout = document.querySelector(".btnLogout");
       let btn_Login = document.querySelector(".btnLogin");
+      let btnManage = document.querySelector(".btnManage")
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
+          btnManage.classList.remove("hidden")
           btnProfile.classList.remove("hidden");
           btn_Logout.classList.remove("hidden");
           btn_Login.classList.add("hidden");
@@ -143,6 +146,7 @@
           email_admin.textContent = user.email;
           loadRooms();
         } else {
+          btnManage.classList.add("hidden")
           btnProfile.classList.add("hidden");
           email_admin.textContent = "";
           btn_Logout.classList.add("hidden");
@@ -152,6 +156,7 @@
       // Đăng xuất
       btn_Logout.addEventListener("click", async () => {
         await signOut(auth);
+        btnManage.classList.add("hidden")
         btnProfile.classList.add("hidden");
         email_admin.textContent = "";
         btn_Logout.classList.add("hidden");

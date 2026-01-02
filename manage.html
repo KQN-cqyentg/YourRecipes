@@ -16,7 +16,7 @@
           </h1>
           <div class="OurUser">
             <button class="btnProfile hidden">
-              <a href="./admin.html">👤 Admin</a>
+              <a href="./admin.html">👤 Profile</a>
             </button>
             <p class="email_admin"></p>
             <button class="btnLogout hidden">Log out</button>
@@ -30,34 +30,17 @@
           <button class="page pDishes">
             <a href="./list_dishes.html">List of dishes</a>
           </button>
-          <button class="page pAbout"><a href="./about.html">About</a></button>
+          <button class="page pAbout">
+            <a href="./about_contact.html">About & Contact</a>
+          </button>
+          <button class="page btnManage">
+            <a href="./manage.html">My Blog</a>
+          </button>
         </div>
       </div>
       <!-- /Thanh Navbar -->
 
-      <div class="container_body">
-        <div>
-          <span class="Cipe"><b>About</b></span>
-          <div class="web_introduce">
-            Welcome to Your Recipes – where recipes are shared with love,
-            creativity, and passion! <br />
-            <br />
-            We believe that food is more than just a meal – it’s a story, an
-            emotion, and a way to connect with others. <br />
-            <br />
-
-            Here, you’ll discover hundreds of diverse recipes – from traditional
-            Vietnamese dishes to global cuisines, from cozy home meals to
-            elegant party dishes. Each recipe is carefully crafted with detailed
-            instructions, helpful tips, and vivid illustrations – empowering you
-            to cook with confidence and find joy in every meal. <br />
-            <br />
-
-            Join us in exploring, creating, and sharing the love of cooking –
-            because every great dish begins with a warm heart. <br />
-          </div>
-        </div>
-      </div>
+      <div class="container_body"></div>
 
       <!-- Chân trang -->
       <div class="footer">
@@ -122,9 +105,11 @@
       let email_admin = document.querySelector(".email_admin");
       let btn_Logout = document.querySelector(".btnLogout");
       let btn_Login = document.querySelector(".btnLogin");
+      let btnManage = document.querySelector(".btnManage");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
+          btnManage.classList.remove("hidden");
           btnProfile.classList.remove("hidden");
           btn_Logout.classList.remove("hidden");
           btn_Login.classList.add("hidden");
@@ -132,15 +117,18 @@
           email_admin.textContent = user.email;
           loadRooms();
         } else {
+          btnManage.classList.add("hidden");
           btnProfile.classList.add("hidden");
           email_admin.textContent = "";
           btn_Logout.classList.add("hidden");
           btn_Login.classList.remove("hidden");
+          window.location.href = "index.html";
         }
       });
       // Đăng xuất
       btn_Logout.addEventListener("click", async () => {
         await signOut(auth);
+        btnManage.classList.add("hidden");
         btnProfile.classList.add("hidden");
         email_admin.textContent = "";
         btn_Logout.classList.add("hidden");

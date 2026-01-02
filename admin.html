@@ -16,7 +16,7 @@
           </h1>
           <div class="OurUser">
             <button class="btnProfile hidden">
-              <a href="./admin.html">👤 Admin</a>
+              <a href="./admin.html">👤 Profile</a>
             </button>
             <p class="email_admin"></p>
             <button class="btnLogout hidden">Log out</button>
@@ -30,7 +30,12 @@
           <button class="page pDishes">
             <a href="./list_dishes.html">List of dishes</a>
           </button>
-          <button class="page pAbout"><a href="./about.html">About</a></button>
+          <button class="page pAbout">
+            <a href="./about_contact.html">About & Contact</a>
+          </button>
+          <button class="page btnManage">
+            <a href="./manage.html">My Blog</a>
+          </button>
         </div>
       </div>
       <!-- /Thanh Navbar -->
@@ -51,7 +56,7 @@
 
             <div>
               <button type="button" class="btnSave">Save changes</button>
-              <button type="button" class="btnCancle">Cancel</button>
+              <button type="button" class="btnCancle" onclick="window.location.href='index.html'">Cancel</button>
             </div>
           </form>
         </div>
@@ -140,8 +145,10 @@
           email_admin.textContent = "";
           btn_Logout.classList.add("hidden");
           btn_Login.classList.remove("hidden");
+          window.location.href = "index.html";
         }
       });
+
       // Đăng xuất
       btn_Logout.addEventListener("click", async () => {
         await signOut(auth);
@@ -181,6 +188,46 @@
           console.error("Lỗi tải dữ liệu:", error);
         }
       }
+
+
+      // Lưu thông tin
+      let btnSave = document.querySelector(".btnSave")
+      let btnCancle = document.querySelector(".btnCancle")
+      btnSave.addEventListener("click", async () => {
+
+        // Validation
+        if (!fullname.value) {
+          alert("Vui lòng nhập họ và tên!");
+          return;
+        }
+        if (!birth.value) {
+          alert("Vui lòng chọn ngày sinh!");
+          return;
+        }
+
+        try {
+          // Cập nhật Firestore
+          const docRef = doc(db, "users", currentUser.uid);
+          await setDoc(
+            docRef,
+            {
+              fullName: fullname.value,
+              birthDate: birth.value,
+              email: currentUser.email,
+              updatedAt: new Date().toISOString(),
+            },
+            { merge: true }
+          );
+
+          // Cập nhật Auth profile
+          await updateProfile(currentUser, {
+            displayName: fullname.value,
+          });
+          alert("Cập nhật thông tin thành công!");
+        } catch (error) {
+          alert("Có lỗi xảy ra: " + error.message);
+        }
+      });
     </script>
   </body>
 </html>

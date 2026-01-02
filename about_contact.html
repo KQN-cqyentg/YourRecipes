@@ -37,35 +37,32 @@
       <!-- /Thanh Navbar -->
 
       <div class="container_body">
-        <div class="list">
-          <div class="Cipe">
-            <div><b>Recipe</b></div>
-          </div>
-          <div class="recipe_list">
-            <!-- <div class="recipe rc1">
-              <div>
-                <img
-                  src="./assets/img/Broad Bean Salad with Feta and Almonds.jfif"
-                  alt="Broad Bean Salad with Feta and Almonds"
-                />
-              </div>
-              <div class="infor">
-                <a href="./list_dishes.html">Grean Bean Salad</a>
-                <br />
-                <span><i>December 18, 2017</i></span> <br />
-                <p>
-                  # Ingredients: <br />
-                  - 4 cooked lobsters or 4 lobster tails <br />
-                  - 1/2 cup mayonnaise <br />
-                  - 2 inner celery stalks and leaves, finely chopped <br />
-                  - Salt and freshly ground black pepper <br />
-                  - 4 rolls, split and lightly toasted <br />
-                  - 2 tablespoons chopped fresh parsley leaves
-                </p>
-              </div>
-            </div> -->
-
+        <div>
+          <span class="Cipe"><b>About</b></span>
+          <div class="web_introduce">
+            Welcome to Your Recipes – where recipes are shared with love,
+            creativity, and passion! <br />
             <br />
+            We believe that food is more than just a meal – it’s a story, an
+            emotion, and a way to connect with others. <br />
+            <br />
+
+            Here, you’ll discover hundreds of diverse recipes – from traditional
+            Vietnamese dishes to global cuisines, from cozy home meals to
+            elegant party dishes. Each recipe is carefully crafted with detailed
+            instructions, helpful tips, and vivid illustrations – empowering you
+            to cook with confidence and find joy in every meal. <br />
+            <br />
+
+            Join us in exploring, creating, and sharing the love of cooking –
+            because every great dish begins with a warm heart. <br />
+          </div>
+        </div>
+
+        <div>
+          <span class="Cipe"><b>Contact</b></span>
+          <div class="web_contact">
+            Liên hệ admin
           </div>
         </div>
       </div>
@@ -100,15 +97,8 @@
     </div>
 
     <script type="module">
-      let eleRecipe_list = document.querySelector(".recipe_list");
-
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-      import {
-        collection,
-        getDocs,
-        getFirestore,
-      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
       import {
         getAuth,
         onAuthStateChanged,
@@ -130,7 +120,6 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-      const db = getFirestore(app);
 
       let currentUser = null;
       let selectedFile = null;
@@ -168,26 +157,6 @@
         email_admin.textContent = "";
         btn_Logout.classList.add("hidden");
         btn_Login.classList.remove("hidden");
-      });
-
-      // Hiển thị dữ liệu các món ăn
-      const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-
-        eleRecipe_list.innerHTML += `
-        <div class="recipe">
-              <div>
-                <img src="${doc.data().img}" alt="..." />
-              </div>
-              <div class="infor">
-                <a href="./list_dishes.html">${doc.data().title}</a>
-                <br />
-                <span><i>${doc.data().date_created}</i></span> <br />
-                <p>${doc.data().des}</p>
-              </div>
-            </div>
-        `;
       });
     </script>
   </body>
