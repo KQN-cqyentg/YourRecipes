@@ -12,7 +12,7 @@
         <form action="">
           <h2>Login</h2>
 
-          <input type="text" id="username" placeholder="Username" />
+          <input type="email" id="username" placeholder="Email" />
 
           <input type="password" id="password" placeholder="Password" />
 
@@ -63,6 +63,7 @@
           })
           .catch((err) => {
             console.log(err.message);
+            alert(err.message)
           });
       }
 

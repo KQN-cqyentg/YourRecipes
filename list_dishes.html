@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <div class="container">
@@ -16,7 +20,9 @@
           </h1>
           <div class="OurUser">
             <button class="btnProfile hidden">
-              <a href="./admin.html">👤 Profile</a>
+              <a href="./admin.html"
+                ><i class="bi bi-person-circle"></i> Profile</a
+              >
             </button>
             <p class="email_admin"></p>
             <button class="btnLogout hidden">Log out</button>
@@ -30,8 +36,12 @@
           <button class="page pDishes">
             <a href="./list_dishes.html">List of dishes</a>
           </button>
-          <button class="page pAbout"><a href="./about_contact.html">About & Contact</a></button>
-          <button class="page btnManage"><a href="./manage.html">My Blog</a></button>
+          <button class="page pAbout">
+            <a href="./about_contact.html">About & Contact</a>
+          </button>
+          <button class="page btnManage">
+            <a href="./manage.html">My Blog</a>
+          </button>
         </div>
       </div>
       <!-- /Thanh Navbar -->
@@ -53,7 +63,7 @@
                 <a href="./list_dishes.html">Grean Bean Salad</a>
                 <br />
                 <span><i>December 18, 2017</i></span> <br />
-                <p>
+                <p class="date">
                   # Ingredients: <br />
                   - 4 cooked lobsters or 4 lobster tails <br />
                   - 1/2 cup mayonnaise <br />
@@ -62,6 +72,7 @@
                   - 4 rolls, split and lightly toasted <br />
                   - 2 tablespoons chopped fresh parsley leaves
                 </p>
+                <p class="blogger"> </p>
               </div>
             </div> -->
 
@@ -86,7 +97,7 @@
             <div class="part_children">
               <a href="./index.html">Home</a> <br />
               <a href="./list_dishes.html">List of dishes</a> <br />
-              <a href="./about.html">About</a>
+              <a href="./about_contact.html">About</a>
             </div>
           </div>
         </div>
@@ -141,19 +152,18 @@
       let email_admin = document.querySelector(".email_admin");
       let btn_Logout = document.querySelector(".btnLogout");
       let btn_Login = document.querySelector(".btnLogin");
-      let btnManage = document.querySelector(".btnManage")
+      let btnManage = document.querySelector(".btnManage");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          btnManage.classList.remove("hidden")
+          btnManage.classList.remove("hidden");
           btnProfile.classList.remove("hidden");
           btn_Logout.classList.remove("hidden");
           btn_Login.classList.add("hidden");
           currentUser = user;
           email_admin.textContent = user.email;
-          loadRooms();
         } else {
-          btnManage.classList.add("hidden")
+          btnManage.classList.add("hidden");
           btnProfile.classList.add("hidden");
           email_admin.textContent = "";
           btn_Logout.classList.add("hidden");
@@ -163,7 +173,7 @@
       // Đăng xuất
       btn_Logout.addEventListener("click", async () => {
         await signOut(auth);
-        btnManage.classList.add("hidden")
+        btnManage.classList.add("hidden");
         btnProfile.classList.add("hidden");
         email_admin.textContent = "";
         btn_Logout.classList.add("hidden");
@@ -182,12 +192,22 @@
               </div>
               <div class="infor">
                 <a href="./list_dishes.html">${doc.data().title}</a>
-                <br />
-                <span><i>${doc.data().createdAt}</i></span> <br />
-                <p>${doc.data().des}</p>
+                
+                <p class="theBlogger"><i class="bi bi-person-circle"></i> ${
+                  doc.data().blogger
+                }</p> 
+                <span><i>${doc.data().createdAt}</i></span> 
+                <p class="theDes">${doc.data().des}</p>
+                
               </div>
             </div>
         `;
+      });
+      const img = document.querySelector(".recipe img");
+      const content = document.querySelector(".infor");
+
+      img.addEventListener("load", () => {
+        content.style.height = img.clientHeight + "px";
       });
     </script>
   </body>

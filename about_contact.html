@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <div class="container">
@@ -16,7 +20,9 @@
           </h1>
           <div class="OurUser">
             <button class="btnProfile hidden">
-              <a href="./admin.html">👤 Profile</a>
+              <a href="./admin.html"
+                ><i class="bi bi-person-circle"></i> Profile</a
+              >
             </button>
             <p class="email_admin"></p>
             <button class="btnLogout hidden">Log out</button>
@@ -30,8 +36,12 @@
           <button class="page pDishes">
             <a href="./list_dishes.html">List of dishes</a>
           </button>
-          <button class="page pAbout"><a href="./about_contact.html">About & Contact</a></button>
-          <button class="page btnManage"><a href="./manage.html">My Blog</a></button>
+          <button class="page pAbout">
+            <a href="./about_contact.html">About & Contact</a>
+          </button>
+          <button class="page btnManage">
+            <a href="./manage.html">My Blog</a>
+          </button>
         </div>
       </div>
       <!-- /Thanh Navbar -->
@@ -40,22 +50,46 @@
         <div>
           <span class="Cipe"><b>About</b></span>
           <div class="web_introduce">
-            Welcome to Your Recipes – where recipes are shared with love,
-            creativity, and passion! <br />
-            <br />
-            We believe that food is more than just a meal – it’s a story, an
-            emotion, and a way to connect with others. <br />
+            Welcome to Your Recipes, a place where a love for food turns
+            into simple, reliable, and inspiring home cooking. <br />
             <br />
 
-            Here, you’ll discover hundreds of diverse recipes – from traditional
-            Vietnamese dishes to global cuisines, from cozy home meals to
-            elegant party dishes. Each recipe is carefully crafted with detailed
-            instructions, helpful tips, and vivid illustrations – empowering you
-            to cook with confidence and find joy in every meal. <br />
+            We believe that great cooking does not need to be complicated. Our
+            mission is to make cooking approachable for everyone—from beginners
+            taking their first steps in the kitchen to passionate home cooks
+            looking for new ideas. Every recipe we share is thoughtfully
+            developed, clearly explained, and focused on real ingredients you
+            can find and use with confidence. <br />
+            <br />
+            At Your Recipes, you will discover: <br />
             <br />
 
-            Join us in exploring, creating, and sharing the love of cooking –
-            because every great dish begins with a warm heart. <br />
+            - Carefully tested recipes with clear, step-by-step instructions
+            <br />
+            <br />
+
+            - Practical tips to help you cook more efficiently and confidently
+            <br />
+            <br />
+
+            - A wide range of dishes, from everyday meals to special-occasion
+            favorites <br />
+            <br />
+
+            - A balance between tradition and creativity, honoring classic
+            flavors while embracing modern techniques <br />
+            <br />
+
+            Cooking is more than following instructions—it is about sharing,
+            experimenting, and enjoying the process. This website was created to
+            be a friendly space where food brings people together, encourages
+            curiosity, and inspires joy at the table. <br />
+            <br />
+
+            Thank you for being part of our growing community. We hope our
+            recipes make your time in the kitchen more enjoyable and your meals
+            more memorable. <br />
+            <br />
           </div>
         </div>
 
@@ -63,8 +97,32 @@
           <span class="Cipe"><b>Contact</b></span>
           <div class="web_contact">
             <div class="web_introduce">
-            Liên hệ Admin
-          </div>
+              <form class="contact-form" id="contactForm">
+                <h2>Contact</h2>
+
+                <label for="name">Full name</label>
+                <input
+                  type="text"
+                  id="name_contact"
+                  placeholder="Enter full name"
+                />
+
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email_contact"
+                  placeholder="Enter email"
+                />
+
+                <label for="message">Content</label>
+                <textarea
+                  id="message_contact"
+                  placeholder="Enter contact information"
+                ></textarea>
+
+                <button type="submit">Send Contact</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -85,7 +143,7 @@
             <div class="part_children">
               <a href="./index.html">Home</a> <br />
               <a href="./list_dishes.html">List of dishes</a> <br />
-              <a href="./about.html">About</a>
+              <a href="./about_contact.html">About</a>
             </div>
           </div>
         </div>
@@ -132,19 +190,18 @@
       let email_admin = document.querySelector(".email_admin");
       let btn_Logout = document.querySelector(".btnLogout");
       let btn_Login = document.querySelector(".btnLogin");
-      let btnManage = document.querySelector(".btnManage")
+      let btnManage = document.querySelector(".btnManage");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          btnManage.classList.remove("hidden")
+          btnManage.classList.remove("hidden");
           btnProfile.classList.remove("hidden");
           btn_Logout.classList.remove("hidden");
           btn_Login.classList.add("hidden");
           currentUser = user;
           email_admin.textContent = user.email;
-          loadRooms();
         } else {
-          btnManage.classList.add("hidden")
+          btnManage.classList.add("hidden");
           btnProfile.classList.add("hidden");
           email_admin.textContent = "";
           btn_Logout.classList.add("hidden");
@@ -154,11 +211,43 @@
       // Đăng xuất
       btn_Logout.addEventListener("click", async () => {
         await signOut(auth);
-        btnManage.classList.add("hidden")
+        btnManage.classList.add("hidden");
         btnProfile.classList.add("hidden");
         email_admin.textContent = "";
         btn_Logout.classList.add("hidden");
         btn_Login.classList.remove("hidden");
+      });
+
+      const contactForm = document.querySelector("#contactForm");
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = document.querySelector("#name_contact").value;
+        const email = document.querySelector("#email_contact").value;
+        const message = document.querySelector("#message_contact").value;
+
+        if (!name & !email & !message) {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+
+        if (!name) {
+          alert("Vui lòng nhập họ và tên!");
+          return;
+        }
+
+        if (!email) {
+          alert("Vui lòng nhập email!");
+          return;
+        }
+
+        if (!message) {
+          alert("Vui lòng nhập nội dung!");
+          return;
+        }
+
+        alert("Gửi liên hệ thành công!");
+        event.target.reset();
       });
     </script>
   </body>

@@ -15,7 +15,7 @@
 
           <input type="date" id="birth" />
 
-          <input type="text" id="username" placeholder="Username" />
+          <input type="email" id="username" placeholder="Email" />
 
           <input type="password" id="password" placeholder="Password" />
 
@@ -116,6 +116,7 @@
           window.location.href = "login.html";
         } catch (error) {
           console.log("Lỗi không đăng ký được!", error.code);
+          alert(error.code)
         }
       });
 
