@@ -47,38 +47,7 @@
       <!-- /Thanh Navbar -->
 
       <div class="container_body">
-        <div class="list">
-          <div class="Cipe">
-            <div><b>Recipe</b></div>
-          </div>
-          <div class="recipe_list">
-            <!-- <div class="recipe rc1">
-              <div>
-                <img
-                  src="./assets/img/Broad Bean Salad with Feta and Almonds.jfif"
-                  alt="Broad Bean Salad with Feta and Almonds"
-                />
-              </div>
-              <div class="infor">
-                <a href="./list_dishes.html">Grean Bean Salad</a>
-                <br />
-                <span><i>December 18, 2017</i></span> <br />
-                <p class="date">
-                  # Ingredients: <br />
-                  - 4 cooked lobsters or 4 lobster tails <br />
-                  - 1/2 cup mayonnaise <br />
-                  - 2 inner celery stalks and leaves, finely chopped <br />
-                  - Salt and freshly ground black pepper <br />
-                  - 4 rolls, split and lightly toasted <br />
-                  - 2 tablespoons chopped fresh parsley leaves
-                </p>
-                <p class="blogger"> </p>
-              </div>
-            </div> -->
-
-            <br />
-          </div>
-        </div>
+        hi
       </div>
 
       <!-- Chân trang -->
@@ -109,16 +78,10 @@
       </div>
       <!-- /Chân trang -->
     </div>
+
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-      import {
-        collection,
-        getDocs,
-        doc,
-        getDoc,
-        getFirestore,
-      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
       import {
         getAuth,
         onAuthStateChanged,
@@ -140,7 +103,6 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-      const db = getFirestore(app);
 
       let currentUser = null;
       let selectedFile = null;
@@ -179,74 +141,7 @@
         btn_Login.classList.remove("hidden");
       });
 
-      // ------Hiển thị dữ liệu các món ăn----------------------
-      //      let eleRecipe_list = document.querySelector(".recipe_list");
-      //      const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
-      //      querySnapshot.forEach((doc) => {
-      //        console.log(doc.data());
-      //
-      //        eleRecipe_list.innerHTML += `
-      //       <div class="recipe">
-      //              <div>
-      //                <img src="${doc.data().img}" alt="..." />
-      //              </div>
-      //              <div class="infor">
-      //                <a href="./the_dish.html">${doc.data().title}</a>
-      //
-      //                <p class="theBlogger"><i class="bi bi-person-circle"></i> ${
-      //                  doc.data().blogger
-      //                }</p>
-      //                <span><i>${doc.data().createdAt}</i></span>
-      //                <p class="theDes">${doc.data().des}</p>
-      //
-      //              </div>
-      //            </div>
-      //        `;
-      //      });
-      const eleRecipe_list = document.querySelector(".recipe_list");
-      async function loadRecipes() {
-        const recipeSnap = await getDocs(collection(db, "FoodRecipes"));
-
-        for (const recipeDoc of recipeSnap.docs) {
-          const recipe = recipeDoc.data();
-
-          // Lấy profile user
-          const userRef = doc(db, "users", recipe.userId);
-          const userSnap = await getDoc(userRef);
-
-          if (!userSnap.exists()) continue;
-
-          const user = userSnap.data();
-
-          eleRecipe_list.innerHTML += `
-             <div class="recipe">
-                    <div>
-                      <img src="${recipe.img}" alt="..." />
-                    </div>
-                    <div class="infor">
-                      <a href="./the_dish.html">${recipe.title}</a>
       
-                      <span class="theBlogger">
-                        <div class="avatar_2"> <img alt="" src="${user.avatarUrl}"> </div>
-                         ${user.fullName}
-                      </span>
-                      <span class="spandate"><i>${recipe.createdAt}</i></span>
-                      <p class="theDes">${recipe.des}</p>
-      
-                    </div>
-                  </div>
-              `;
-        }
-      }
-
-      loadRecipes();
-
-      const img = document.querySelector(".recipe img");
-      const content = document.querySelector(".infor");
-
-      img.addEventListener("load", () => {
-        content.style.height = img.clientHeight + "px";
-      });
     </script>
   </body>
 </html>

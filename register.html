@@ -63,6 +63,8 @@
       const auth = getAuth(app);
       const db = getFirestore(app);
 
+      let currentAvatarUrl = null;
+
       let btnAdd = document.querySelector(".btnRegister");
 
       btnAdd.addEventListener("click", async (e) => {
@@ -109,6 +111,7 @@
             fullName: valueFulln,
             birthDate: valueBirth,
             email: valueUser,
+            avatarUrl: currentAvatarUrl,
             createdAt: new Date().toISOString(),
           });
 

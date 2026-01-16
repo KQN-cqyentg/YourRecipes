@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <div class="container">
@@ -17,7 +20,9 @@
           </h1>
           <div class="OurUser">
             <button class="btnProfile">
-              <a href="./admin.html"><i class="bi bi-person-circle"></i> Profile</a>
+              <a href="./admin.html"
+                ><i class="bi bi-person-circle"></i> Profile</a
+              >
             </button>
             <p class="email_admin"></p>
             <button class="btnLogout">Log out</button>
@@ -33,8 +38,12 @@
           <button class="page pDishes">
             <a href="./list_dishes.html">List of dishes</a>
           </button>
-          <button class="page pAbout"><a href="./about_contact.html">About & Contact</a></button>
-          <button class="page btnManage"><a href="./manage.html">My Blog</a></button>
+          <button class="page pAbout">
+            <a href="./about_contact.html">About & Contact</a>
+          </button>
+          <button class="page btnManage">
+            <a href="./manage.html">My Blog</a>
+          </button>
         </div>
       </div>
       <!-- /Thanh Navbar -->
@@ -93,13 +102,13 @@
     </div>
 
     <script type="module">
-      let eleDishes = document.querySelector(".dishes");
-
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
       import {
         collection,
         getDocs,
+        doc,
+        getDoc,
         getFirestore,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
       import {
@@ -134,18 +143,18 @@
       let email_admin = document.querySelector(".email_admin");
       let btn_Logout = document.querySelector(".btnLogout");
       let btn_Login = document.querySelector(".btnLogin");
-      let btnManage = document.querySelector(".btnManage")
+      let btnManage = document.querySelector(".btnManage");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          btnManage.classList.remove("hidden")
+          btnManage.classList.remove("hidden");
           btnProfile.classList.remove("hidden");
           btn_Logout.classList.remove("hidden");
           btn_Login.classList.add("hidden");
           currentUser = user;
           email_admin.textContent = user.email;
         } else {
-          btnManage.classList.add("hidden")
+          btnManage.classList.add("hidden");
           btnProfile.classList.add("hidden");
           email_admin.textContent = "";
           btn_Logout.classList.add("hidden");
@@ -155,7 +164,7 @@
       // Đăng xuất
       btn_Logout.addEventListener("click", async () => {
         await signOut(auth);
-        btnManage.classList.add("hidden")
+        btnManage.classList.add("hidden");
         btnProfile.classList.add("hidden");
         email_admin.textContent = "";
         btn_Logout.classList.add("hidden");
@@ -170,22 +179,57 @@
       //      <button class="btnLogin"><a href="./login.html">Log in</a></button>
       //    </div>
 
-      // Hiển thị dữ liệu các món ăn
-      const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
+      // -----Hiển thị dữ liệu các món ăn---------------------------------------
+      //      const querySnapshot = await getDocs(collection(db, "FoodRecipes"));
+      //      querySnapshot.forEach((doc) => {
+      //        console.log(doc.data());
+      //
+      //        eleDishes.innerHTML += `
+      //        <div class="dish">
+      //              <img src="${doc.data().img}" alt="" />
+      //              <div class="letter">
+      //                <a href="./the_dish.html">${doc.data().title}</a> <br />
+      //                <span class="blogger"><i class="bi bi-person-circle"></i>
+      //                 <!--<img src="" alt="" class="avatar">-->
+      //                   ${doc.data().blogger}</span> <br>
+      //                <span class="date">${doc.data().createdAt}</span> <br>
+      //              </div>
+      //            </div>
+      //        `;
+      //      });
+      const eleDishes = document.querySelector(".dishes");
 
-        eleDishes.innerHTML += `
-        <div class="dish">
-              <img src="${doc.data().img}" alt="" />
-              <div class="letter">
-                <a href="./list_dishes.html">${doc.data().title}</a> <br />
-                <span class="blogger"><i class="bi bi-person-circle"></i> ${doc.data().blogger}</span> <br>
-                <span class="date">${doc.data().createdAt}</span> <br>
-              </div>
-            </div>
-        `;
-      });
+      async function loadRecipes() {
+        const recipeSnap = await getDocs(collection(db, "FoodRecipes"));
+
+        for (const recipeDoc of recipeSnap.docs) {
+          const recipe = recipeDoc.data();
+
+          // Lấy profile user
+          const userRef = doc(db, "users", recipe.userId);
+          const userSnap = await getDoc(userRef);
+
+          if (!userSnap.exists()) continue;
+
+          const user = userSnap.data();
+
+          eleDishes.innerHTML += `
+              <div class="dish">
+                    <img src="${recipe.img}" alt="" />
+                    <div class="letter">
+                      <a href="./the_dish.html">${recipe.title}</a> <br />
+                      <span class="blogger">
+                       <div class="avatar"> <img alt="" src="${user.avatarUrl}"> </div>
+                         ${user.fullName}
+                        </span> 
+                      <span class="date">${recipe.createdAt}</span> <br>
+                    </div>
+                  </div>
+              `;
+        }
+      }
+
+      loadRecipes();
     </script>
     <!-- <script>
       let eleDishes = document.querySelector(".dishes");
