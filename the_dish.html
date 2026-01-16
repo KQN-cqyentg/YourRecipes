@@ -46,8 +46,38 @@
       </div>
       <!-- /Thanh Navbar -->
 
-      <div class="container_body">
-        hi
+      <div class="container_dish">
+        <div class="hero">
+          <div class="hero-bg"><img src="" alt="" class="hero_img" /></div>
+
+          
+          <div class="overlay"></div>
+
+          <div class="hero-content">
+            <h1 class="title_dish" id="title"></h1>
+
+            <div class="meta">
+              <div class="avatar_dish" id="avatar">
+                <img src="" alt="author" />
+              </div>
+
+              <div class="meta-text">
+                <span>
+                  <div class="author" id="name"></div>
+                  -
+                  <div class="date_dish" id="date"></div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dish_content">
+          <div class="description"></div>
+          <div class="some_dishes">
+            <h3>Hi</h3>
+          </div>
+        </div>
       </div>
 
       <!-- Chân trang -->
@@ -62,7 +92,7 @@
           </div>
 
           <div class="part navigate">
-            <span>Navigate</span>
+            <span><b>Navigate</b></span>
             <div class="part_children">
               <a href="./index.html">Home</a> <br />
               <a href="./list_dishes.html">List of dishes</a> <br />
@@ -80,6 +110,16 @@
     </div>
 
     <script type="module">
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+      //const hero = document.querySelector(".hero_img");
+
+      //   window.addEventListener("scroll", () => {
+      //     const scrollY = window.scrollY;
+      //     hero.style.backgroundPositionY = `${scrollY * 0.4}px`;
+      //   });
+
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
       import {
@@ -87,6 +127,13 @@
         onAuthStateChanged,
         signOut,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+      import {
+        collection,
+        getDocs,
+        doc,
+        getDoc,
+        getFirestore,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -103,6 +150,7 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+      const db = getFirestore(app);
 
       let currentUser = null;
       let selectedFile = null;
@@ -141,7 +189,81 @@
         btn_Login.classList.remove("hidden");
       });
 
-      
+      //  <div class="hero-content">
+      //        <h1 class="title_dish" id="title">
+      //
+      //        </h1>
+      //        <div class="meta">
+      //          <div class="avatar_dish" id="avatar">
+      //            <img src="" alt="author" />
+      //          </div>
+      //          <div class="meta-text">
+      //            <span class="author" id="name"></span>
+      //            <span class="date_dish" id="date"></span>
+      //          </div>
+      //        </div>
+      //      </div>
+      // Lấy id từ URL
+      const params = new URLSearchParams(window.location.search);
+      const recipeId = params.get("id");
+      console.log("Recipe ID from URL:", recipeId);
+
+      // Render UI
+
+      async function loadRecipe() {
+        try {
+          if (!recipeId) {
+            alert("Recipe id is missing!");
+            window.location.href = "index.html";
+            return;
+          }
+
+          /* ========= LẤY RECIPE ========= */
+          const recipeRef = doc(db, "FoodRecipes", recipeId);
+          const recipeSnap = await getDoc(recipeRef);
+
+          if (!recipeSnap.exists()) {
+            alert("Recipe not found!");
+            //window.location.href = "index.html";
+            return;
+          }
+
+          const recipe = recipeSnap.data(); // ← CHỐT Ở ĐÂY
+
+          /* ========= LẤY USER ========= */
+          if (!recipe.userId) {
+            alert("Recipe has no author!");
+            //window.location.href = "index.html";
+            return;
+          }
+
+          const userRef = doc(db, "users", recipe.userId);
+          const userSnap = await getDoc(userRef);
+
+          if (!userSnap.exists()) {
+            alert("Author not found!");
+            //window.location.href = "index.html";
+            return;
+          }
+
+          const user = userSnap.data();
+
+          /* ========= RENDER UI ========= */
+          document.querySelector("#title").innerText = recipe.title;
+          document.querySelector(".hero_img").src = recipe.img;
+          document.querySelector("#avatar img").src =
+            user.avatarUrl || "default-avatar.png";
+          document.querySelector("#name").innerText = `by ${user.fullName} `;
+          document.querySelector("#date").innerText = `${recipe.createdAt} `;
+          document.querySelector(".description").innerHTML = `${recipe.des}`;
+        } catch (error) {
+          console.error(error);
+          alert("Failed to load recipe");
+          window.location.href = "index.html";
+        }
+      }
+
+      loadRecipe();
     </script>
   </body>
 </html>

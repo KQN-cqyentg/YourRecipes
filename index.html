@@ -85,7 +85,7 @@
           </div>
 
           <div class="part navigate">
-            <span>Navigate</span>
+            <span><b>Navigate</b></span>
             <div class="part_children">
               <a href="./index.html">Home</a> <br />
               <a href="./list_dishes.html">List of dishes</a> <br />
@@ -100,7 +100,6 @@
       </div>
       <!-- /Chân trang -->
     </div>
-
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
@@ -217,7 +216,8 @@
               <div class="dish">
                     <img src="${recipe.img}" alt="" />
                     <div class="letter">
-                      <a href="./the_dish.html">${recipe.title}</a> <br />
+                      <a href="./the_dish.html?id=${recipeDoc.id}">
+                        ${recipe.title}</a> <br />
                       <span class="blogger">
                        <div class="avatar"> <img alt="" src="${user.avatarUrl}"> </div>
                          ${user.fullName}
