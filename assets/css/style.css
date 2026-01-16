@@ -373,8 +373,8 @@
     margin: 5px 0;
 }
 .avatar_2 {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   overflow: hidden;          /* QUAN TRỌNG */
   flex-shrink: 0;
@@ -402,19 +402,16 @@
 .hero {
   position: relative;
   width: 100%;
-    height: 480px;
-  /* background-image: url("/assets/img/Món\ cahr\ lụa\,\ mì\,....jfif"); */
-  overflow: hidden;
+  height: 480px;
   
+  /* background-image: url("/assets/img/Món\ cahr\ lụa\,\ mì\,....jfif"); */
   display: flex;
   align-items: flex-end;
 
   
 }
-.hero-bg {
-    position: absolute;
-    background-size: cover;
-  background-position: center;
+.hero_img {
+   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -423,7 +420,7 @@
   transition: transform 3s ease;
 
 }
-body.loaded .hero-bg {
+body.loaded .hero_img {
   transform: scale(1);
 }
 /* Overlay tối */
