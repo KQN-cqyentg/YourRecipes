@@ -172,18 +172,15 @@
 .dishes {
     margin: 20px 0;
     padding: 20px 0;
-    /* display: inline-flex;
-    flex-direction: row;
-    flex-wrap: nowrap; */
     justify-content: space-between;
-    white-space: normal;
-    overflow: hidden;
+    white-space: nowrap; /* Giữ văn bản trên một dòng */
+    overflow-x: auto;    /* Ẩn những phần bị tràn */
     width: 100%;
     border-radius: 10px;
 
-    display: grid;
+    /* display: grid;
     grid-template-columns: auto auto auto auto;
-    gap: 8px;
+    gap: 8px; */
 }
 .dishes img {
     width: 270px;
@@ -363,6 +360,7 @@
 
     height: 65%;
     overflow-y: auto;
+    white-space: pre-wrap;
 
 }
 .theBlogger {
@@ -536,6 +534,7 @@ body.loaded .hero-content {
     align-items: flex-start;
 }
 .description {
+    white-space: pre-wrap;
     width: 75%;
     margin: auto auto;
     margin-right: 20px;
@@ -785,7 +784,7 @@ flex-direction: column;
 
 /* Trang đăng bài */
 #description {
-    white-space: pre-line;
+    white-space: pre-wrap;
 }
 .post_1 {
     width: 100%;
@@ -831,10 +830,12 @@ border-radius: 4px;
 border: rgb(116, 133, 38) 2px solid;
 font-size: 16px;
 margin: 5px auto;
+white-space: pre-wrap;
 }
 .post-form textarea {
-resize: vertical;
-min-height: 100px;
+    resize: vertical;
+    min-height: 100px;
+    white-space: pre-wrap;
 }
 .post_3 {
     margin: 35px 5px;
@@ -997,6 +998,7 @@ text-align: center;
     color: rgb(86, 86, 86);
     font-size: 18px;
     margin: 8px 0;
+    white-space: pre-wrap;
 
     height: 65%;
     overflow-y: auto;
