@@ -313,7 +313,7 @@
           const updateData = {
             title,
             des,
-            createdAt: new Date().toISOString(),
+            createdAt: new Date().toLocaleDateString('vi-VN'),
           };
 
           if (img) updateData.img = img; // chỉ update ảnh khi có ảnh mới
@@ -327,7 +327,7 @@
             img,
             userId: currentUser.uid,
             email: currentUser.email,
-            createdAt: new Date().toISOString(),
+            createdAt: new Date().toLocaleDateString('vi-VN'),
           });
           alert("Đăng bài thành công!");
         }
