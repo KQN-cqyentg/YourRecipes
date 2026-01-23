@@ -338,35 +338,53 @@
 
       /* ===== LOAD MY POSTS ===== */
       async function loadMyPosts() {
-        postList.innerHTML = "";
-        const q = query(
-          collection(db, "FoodRecipes"),
-          where("userId", "==", currentUser.uid),
-        );
+  postList.innerHTML = "";
 
-        const snap = await getDocs(q);
+  const q = query(
+    collection(db, "FoodRecipes"),
+    where("userId", "==", currentUser.uid)
+  );
 
-        if (snap.empty) {
-          postList.innerHTML = "<p>Bạn chưa đăng bài nào.</p>";
-          return;
-        }
+  const snap = await getDocs(q);
 
-        snap.forEach((docSnap) => {
-          const post = docSnap.data();
-          postList.innerHTML += `
+  if (snap.empty) {
+    postList.innerHTML = "<p>Bạn chưa đăng bài nào.</p>";
+    return;
+  }
+
+  for (const docSnap of snap.docs) {
+    const post = docSnap.data();
+
+    // 👉 LẤY USER
+    const userSnap = await getDoc(doc(db, "users", post.userId));
+    const user = userSnap.exists() ? userSnap.data() : {};
+
+    postList.innerHTML += `
       <div class="post-card">
-        <img src="${post.img || "https://via.placeholder.com/150"}" />
-        <h3>${post.title}</h3>
-        <p id="description">${post.des}</p>
-        <small>${post.createdAt}</small>
-        <div>
+        <div class="post-card_1">
+          <img src="${post.img || "https://via.placeholder.com/150"}" />
+        </div>
+
+        <div class="post-card_2">
+          <a href="./the_dish.html?id=${docSnap.id}">
+            ${post.title}
+          </a>
+          <span class="the-Blogger">
+                        <div class="avatar_2"> <img alt="" src="${user.avatarUrl}"> </div>
+                         ${user.fullName}
+                      </span>
+          <span class="the-Date">${post.createdAt || ""}</span>
+          <p class="post-desc">${post.des}</p>
+        </div>
+
+        <div class="post-card_3">
           <button onclick="editPost('${docSnap.id}')">Edit</button>
           <button onclick="deletePost('${docSnap.id}')">Delete</button>
         </div>
       </div>
     `;
-        });
-      }
+  }
+}
 
       /* ===== EDIT ===== */
       window.editPost = async (id) => {

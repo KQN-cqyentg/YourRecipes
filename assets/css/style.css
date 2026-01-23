@@ -318,14 +318,14 @@
 .recipe img {
     grid-column-start: 1;
     width: 575px;
-    height: 450px;
+    height: 384px;
     margin: 0 0;
     border-radius: 10px;
     
 }
 .recipe {
     width: 1150px;
-    height: 450px;
+    height: 384px;
     margin-right: 20px;
     margin-bottom: 40px;
     border: 2px solid ghostwhite;
@@ -337,6 +337,7 @@
     align-items: stretch;
 }
 .infor {
+    height: 384px;
     padding: 0 20px;
     grid-column-start: 2;
     display: flex;
@@ -388,7 +389,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;         /* Không méo ảnh */
-  display: block;
 }
 /* /Trang list dishes */
 
@@ -944,5 +944,89 @@ box-shadow: 0 2px 2px rgb(116, 133, 38);
     margin-bottom: 20px;
 font-size: 40px;
 text-align: center;
+}
+.post-list {
+    margin: 20px auto;
+}
+.post-card {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.post-card_1 {
+    width: 45%;
+    height: 200px;
+    border-radius: 10px;
+}
+.post-card_1 img {
+    width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.post-card_3 {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.post-card_2 {
+    width: 45%;
+    height: 100%;
+    margin: auto 20px;
+    display: flex;
+    flex-direction: column;
+}
+.post-card_2 a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+    transition: 0.3s;
+}
+.post-card_2 a:hover {
+    color: rgb(72, 72, 72);
+}
+.the-Date {
+    color: grey;
+    font-size: 18px;
+}
+.post-card_2 p {
+    color: rgb(86, 86, 86);
+    font-size: 18px;
+    margin: 8px 0;
+
+    height: 65%;
+    overflow-y: auto;
+
+}
+.the-Blogger {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: rgb(72, 72, 72);
+    font-size: 18px;
+    margin: 5px 0;
+}
+.the-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  overflow: hidden;         
+  flex-shrink: 0;
+  background: rgb(116, 133, 38);
+
+  margin-right: 7.5px;
+}
+.the-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         
 }
 /* /Trang đăng bài */
