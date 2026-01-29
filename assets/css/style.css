@@ -178,6 +178,9 @@
     width: 100%;
     border-radius: 10px;
 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     /* display: grid;
     grid-template-columns: auto auto auto auto;
     gap: 8px; */
@@ -196,17 +199,21 @@
     margin: 15px 0px;
     padding: 0 0;
     margin-right: 22px;
-    width: 265px;
+    width: 270px;
+    height: 300px;
     white-space: normal;
-    display: inline-flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
     
+    border-radius: 15px;
     border: 1px solid ghostwhite;
+    border-bottom: 1px solid rgb(116, 133, 38);
     font-size: 28px;
     transition: transform 0.3s;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 .dish:hover {
   transform: translateY(-10px);
@@ -215,12 +222,19 @@
     text-decoration: none;
     color: black;
     transition: 0.3s;
+
+    white-space: nowrap; /* Không cho phép xuống dòng */
+    
 }
 .dish a:hover {
     color: rgb(72, 72, 72);
 }
 .letter {
     padding: 10px 5px;
+    width: 270px;
+
+    overflow: hidden; /* Ẩn nội dung tràn ra ngoài */
+    text-overflow: ellipsis; /* Thêm dấu 3 chấm (...) khi bị cắt */
 }
 .date {
     margin: 0 5px;
@@ -236,6 +250,10 @@
     margin: 0 5px;
     font-size: 20px; 
     color: rgb(72, 72, 72);
+
+    white-space: nowrap; /* Không cho phép xuống dòng */
+    overflow: hidden; /* Ẩn nội dung tràn ra ngoài */
+  /* text-overflow: ellipsis; /Thêm dấu 3 chấm (...) khi bị cắt */
 }
 .avatar {
   width: 36px;
@@ -314,37 +332,48 @@
 }
 .recipe img {
     grid-column-start: 1;
-    width: 575px;
+    width: 100%;
     height: 384px;
+    object-fit: cover;
     margin: 0 0;
     border-radius: 10px;
     
 }
 .recipe {
-    width: 1150px;
+    width: 100%;
     height: 384px;
     margin-right: 20px;
     margin-bottom: 40px;
     border: 2px solid ghostwhite;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 0 0;
+
+    border-right: 2px solid rgb(116, 133, 38);
+    border-top: 1px solid rgb(116, 133, 38);
 
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: stretch;
 }
 .infor {
+    width: 100%;
     height: 384px;
-    padding: 0 20px;
+    padding: 0 50px;
     grid-column-start: 2;
     display: flex;
     flex-direction: column;
+
+    /* border-top: 2px solid rgb(116, 133, 38); */
+    
+    border-radius: 10px;
+    padding: 0 10px;
 }
 .infor a {
     text-decoration: none;
     color: black;
     font-size: 35px;
     transition: 0.3s;
+    margin-top: 10px;
 }
 .infor a:hover {
     color: rgb(72, 72, 72);

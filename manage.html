@@ -313,7 +313,7 @@
           const updateData = {
             title,
             des,
-            createdAt: new Date().toLocaleDateString('vi-VN'),
+            createdAt: new Date().toLocaleDateString("vi-VN"),
           };
 
           if (img) updateData.img = img; // chỉ update ảnh khi có ảnh mới
@@ -327,7 +327,7 @@
             img,
             userId: currentUser.uid,
             email: currentUser.email,
-            createdAt: new Date().toLocaleDateString('vi-VN'),
+            createdAt: new Date().toLocaleDateString("vi-VN"),
           });
           alert("Đăng bài thành công!");
         }
@@ -338,28 +338,28 @@
 
       /* ===== LOAD MY POSTS ===== */
       async function loadMyPosts() {
-  postList.innerHTML = "";
+        postList.innerHTML = "";
 
-  const q = query(
-    collection(db, "FoodRecipes"),
-    where("userId", "==", currentUser.uid)
-  );
+        const q = query(
+          collection(db, "FoodRecipes"),
+          where("userId", "==", currentUser.uid),
+        );
 
-  const snap = await getDocs(q);
+        const snap = await getDocs(q);
 
-  if (snap.empty) {
-    postList.innerHTML = "<p>Bạn chưa đăng bài nào.</p>";
-    return;
-  }
+        if (snap.empty) {
+          postList.innerHTML = "<p>You haven't posted anything yet.</p>";
+          return;
+        }
 
-  for (const docSnap of snap.docs) {
-    const post = docSnap.data();
+        for (const docSnap of snap.docs) {
+          const post = docSnap.data();
 
-    // 👉 LẤY USER
-    const userSnap = await getDoc(doc(db, "users", post.userId));
-    const user = userSnap.exists() ? userSnap.data() : {};
+          // 👉 LẤY USER
+          const userSnap = await getDoc(doc(db, "users", post.userId));
+          const user = userSnap.exists() ? userSnap.data() : {};
 
-    postList.innerHTML += `
+          postList.innerHTML += `
       <div class="post-card">
         <div class="post-card_1">
           <img src="${post.img || "https://via.placeholder.com/150"}" />
@@ -383,8 +383,8 @@
         </div>
       </div>
     `;
-  }
-}
+        }
+      }
 
       /* ===== EDIT ===== */
       window.editPost = async (id) => {
